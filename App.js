@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   Button,
+  ImageBackground,
   Alert,
   Modal,
   TouchableOpacity,
@@ -57,101 +58,109 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View>
-          <Text style={[styles.red, styles.bold]}>
-            Voici votre programme de la journée :
-          </Text>
+      <ImageBackground
+        source={{
+          uri: "https://fond-ecran-manga.fr/wp-content/uploads/2020/05/Twitter-One-Piece-600x945.jpg",
+        }}
+        style={styles.backgroundImage}
+      >
+        <ScrollView>
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <Text style={[styles.red, styles.bold]}>
+              Voici votre programme de la journée :
+            </Text>
 
-          {liste.map((item, index) => (
-            <View key={index} style={styles.liste}>
-              <Text>{item}</Text>
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalUpdateVisible}
-                style={styles.modal}
-              >
-                <View style={styles.centeredView}>
-                  <View style={styles.modalView}>
-                    <View>
-                      <TextInput
-                        style={styles.input}
-                        placeholder="saisir votre modif"
-                        onChangeText={(text) => setInputValue(text)}
-                        value={inputValue}
-                      />
+            {liste.map((item, index) => (
+              <View key={index} style={styles.liste}>
+                <Text>{item}</Text>
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={modalUpdateVisible}
+                  style={styles.modal}
+                >
+                  <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                      <View>
+                        <TextInput
+                          style={styles.input}
+                          placeholder="saisir votre modif"
+                          onChangeText={(text) => setInputValue(text)}
+                          value={inputValue}
+                        />
 
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "space-around",
-                        }}
-                      >
-                        <Button
-                          title="Update"
-                          onPress={() => updateTache(index)}
-                        />
-                        <Button
-                          title="Fermer"
-                          onPress={() => openUpdateModal()}
-                        />
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-around",
+                          }}
+                        >
+                          <Button
+                            title="Update"
+                            onPress={() => updateTache(index)}
+                          />
+                          <Button
+                            title="Fermer"
+                            onPress={() => openUpdateModal()}
+                          />
+                        </View>
                       </View>
                     </View>
                   </View>
-                </View>
-              </Modal>
-              <TouchableOpacity
-                style={styles.buttonUpdate}
-                activeOpacity={0.5}
-                onPress={() => openUpdateModal()}
-              >
-                <Image
-                  source={{
-                    uri: "https://www.shutterstock.com/image-vector/edit-icon-square-pen-linear-600w-1157259529.jpg",
-                  }}
-                  style={styles.buttonImageIconStyle}
-                />
-              </TouchableOpacity>
-              <Button title="X" onPress={() => removeTache(index)} />
-            </View>
-          ))}
-        </View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          style={styles.modal}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <View /*style={{ flexDirection: "row" }}*/>
-                <TextInput
-                  style={styles.input}
-                  placeholder="saisir votre reponse"
-                  onChangeText={(text) => setInputValue(text)}
-                  value={inputValue}
-                />
-
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
+                </Modal>
+                <TouchableOpacity
+                  style={styles.buttonUpdate}
+                  activeOpacity={0.5}
+                  onPress={() => openUpdateModal()}
                 >
-                  <Button title="Add" onPress={() => newTache()} />
-                  <Button title="Fermer" onPress={() => openModal()} />
+                  <Image
+                    source={{
+                      uri: "https://www.shutterstock.com/image-vector/edit-icon-square-pen-linear-600w-1157259529.jpg",
+                    }}
+                    style={styles.buttonImageIconStyle}
+                  />
+                </TouchableOpacity>
+                <Button title="X" onPress={() => removeTache(index)} />
+              </View>
+            ))}
+
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              style={styles.modal}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <View /*style={{ flexDirection: "row" }}*/>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="saisir votre reponse"
+                      onChangeText={(text) => setInputValue(text)}
+                      value={inputValue}
+                    />
+
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      <Button title="Add" onPress={() => newTache()} />
+                      <Button title="Fermer" onPress={() => openModal()} />
+                    </View>
+                  </View>
                 </View>
               </View>
-            </View>
-          </View>
-        </Modal>
+            </Modal>
 
-        <Button title="Ajouter une tâche" onPress={() => openModal()} />
-        <StatusBar style="auto" />
-      </ScrollView>
+            <Button title="Ajouter une tâche" onPress={() => openModal()} />
+            <StatusBar style="auto" />
+          </View>
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 }
@@ -165,11 +174,11 @@ const styles = StyleSheet.create({
   },
   liste: {
     flexDirection: "row",
-    backgroundColor: "green",
+    backgroundColor: "orange",
     borderRadius: 15,
     padding: 10,
     marginTop: 10,
-    width: 300,
+    width: 350,
   },
   centeredView: {
     flex: 1,
@@ -212,7 +221,7 @@ const styles = StyleSheet.create({
   buttonUpdate: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "orange",
+    backgroundColor: "green",
     height: "auto",
     borderRadius: 5,
     margin: 5,
@@ -221,5 +230,10 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
     resizeMode: "stretch",
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "contain",
+    justifyContent: "center",
   },
 });
